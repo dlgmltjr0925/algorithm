@@ -6,10 +6,10 @@ const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('
 
 const [n, m, v] = input[0].split(' ').map(value => parseInt(value));
 
-const map = [...new Array(n + 1)].map(() => new Array(n + 1));
+const map = Array.from(new Array(n + 1), () => new Array(n + 1));
 
-const resultDFS = new Set();
-const resultBFS = new Set();
+let resultDFS = '';
+let resultBFS = '';
 
 for (let i = 1; i <= m; i++) {
   const [n1, n2] = input[i].split(' ').map(value => parseInt(value));
@@ -17,22 +17,27 @@ for (let i = 1; i <= m; i++) {
   map[n2][n1] = true;
 }
 
+const resultDFSMap = {};
 const dfs = (start) => {
   // console.log('dfs', start);
-  resultDFS.add(start);
-  map[start].forEach((_, i) => { if (!resultDFS.has(i)) dfs(i) });
+  resultDFS += start + ' ';
+  resultDFSMap[start] = true;
+  map[start].forEach((_, i) => { if (!resultDFSMap[i]) dfs(i) });
 }
 
 
+const resultBFSMap = {};
 const bfs = () => {
-  resultBFS.add(v)
+  resultBFS += v + ' '
+  resultBFSMap[v] = true
   const queue = [v];
   do {
     const start = queue.shift();
     // console.log('bfs', start);
     map[start].forEach((_, i) => {
-      if (!resultBFS.has(i)) {
-        resultBFS.add(i);
+      if (!resultBFSMap[i]) {
+        resultBFS += i + ' '
+        resultBFSMap[i] = true
         queue.push(i);
       }
     })
@@ -42,5 +47,4 @@ const bfs = () => {
 dfs(v);
 bfs();
 
-console.log([...resultDFS.values()].join(' '));
-console.log([...resultBFS.values()].join(' '));
+console.log(resultDFS.replace(/\s$/, `\n`) + resultBFS.replace(/\s$/, ''));
