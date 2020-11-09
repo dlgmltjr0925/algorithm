@@ -1,20 +1,22 @@
-const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+// const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
 
 // const input = ['4 5 1', '1 2', '1 3', '1 4', '2 4', '3 4'];
-// const input = [`5 5 3`, `5 4`, `5 2`, `1 2`, `3 4`, `3 1`];
+const input = [`5 5 3`, `5 4`, `5 2`, `1 2`, `3 4`, `3 1`];
 // const input = [`1000 1 1000`, `999 1000`];
 
 const [n, m, v] = input[0].split(' ').map(value => parseInt(value));
 
-const map = Array.from(new Array(n + 1), () => new Array(n + 1));
+const map = {};
 
 let resultDFS = '';
 let resultBFS = '';
 
 for (let i = 1; i <= m; i++) {
   const [n1, n2] = input[i].split(' ').map(value => parseInt(value));
-  map[n1][n2] = true;
-  map[n2][n1] = true;
+  if (!map[n1]) map[n1] = {};
+  map[n1][n2] = n2;
+  if (!map[n2]) map[n2] = {};
+  map[n2][n1] = n1;
 }
 
 const resultDFSMap = {};
@@ -22,7 +24,7 @@ const dfs = (start) => {
   // console.log('dfs', start);
   resultDFS += start + ' ';
   resultDFSMap[start] = true;
-  map[start].forEach((_, i) => { if (!resultDFSMap[i]) dfs(i) });
+  if (map[start]) Object.values(map[start]).forEach(i => { if (!resultDFSMap[i]) dfs(i) });
 }
 
 
@@ -34,7 +36,7 @@ const bfs = () => {
   do {
     const start = queue.shift();
     // console.log('bfs', start);
-    map[start].forEach((_, i) => {
+    if (map[start]) Object.values(map[start]).forEach(i => {
       if (!resultBFSMap[i]) {
         resultBFS += i + ' '
         resultBFSMap[i] = true

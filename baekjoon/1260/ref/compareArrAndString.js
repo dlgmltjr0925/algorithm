@@ -14,5 +14,5 @@ const useString = () => {
   str.replace(/\s$/, '');
 }
 
-checkRunTime(useJoin)
-checkRunTime(useString)
+checkRunTime(useJoin); // 618.724ms
+checkRunTime(useString); // 429.771ms

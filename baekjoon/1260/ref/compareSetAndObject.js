@@ -27,6 +27,23 @@ const hasCheckWithObjMap = () => {
   }
 }
 
-checkRunTime(hasCheckWithSet);
-checkRunTime(hasCheckWithArray);
-checkRunTime(hasCheckWithObjMap);
+const useArray = () => {
+  for (let i = 0; i < RANGE; i++) {
+    const value = arrData[i];
+  }
+}
+
+const useObject = () => {
+  for (let i = 0; i < RANGE; i++) {
+    const value = objMap[i];
+  }
+}
+
+(async () => {
+  await checkRunTime(hasCheckWithSet); // 0.95m
+  await checkRunTime(hasCheckWithArray); // 35818ms
+  await checkRunTime(hasCheckWithObjMap); // 0.16ms
+
+  await checkRunTime(useArray); // 0.94ms
+  await checkRunTime(useObject); // 0.76ms
+})();

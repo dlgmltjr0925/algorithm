@@ -10,5 +10,5 @@ const useFromOfArray = () => {
   const arr = Array.from(new Array(RANGE), (_, i) => i);
 }
 
-checkRunTime(useDestructure);
-checkRunTime(useFromOfArray);
+checkRunTime(useDestructure); // 299.297ms
+checkRunTime(useFromOfArray); // 239.740ms
