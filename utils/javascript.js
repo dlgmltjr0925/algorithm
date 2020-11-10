@@ -1,5 +1,5 @@
-exports.checkRunTime = async (callbacks, options = { count: 10 }) => {
-  for (const callback in callbacks) {
+exports.checkRunTimes = async (callbacks, options = { count: 10 }) => {
+  for (const callback of callbacks) {
     let count = options.count || 10;
     let time = 0;
     for (let i = 0 ;i < count; i++) {
