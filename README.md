@@ -6,4 +6,4 @@ This is a repository where you record your practice of the algorithm.
 
 - [Backjoon](https://www.acmicpc.net/)
 
-Updated At : Fri Nov 13 2020 00:00:08 GMT+0000 (Coordinated Universal Time)
+Updated At : Fri Nov 13 2020 12:00:09 GMT+0000 (Coordinated Universal Time)
